@@ -1,4 +1,10 @@
 import {
+  ORDER_ADMIN_DELIVER_FAIL,
+  ORDER_ADMIN_DELIVER_REQUEST,
+  ORDER_ADMIN_DELIVER_SUCCESS,
+  ORDER_ADMIN_VIEW_FAIL,
+  ORDER_ADMIN_VIEW_REQUEST,
+  ORDER_ADMIN_VIEW_SUCCESS,
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
@@ -152,6 +158,80 @@ export const viewMyOrder = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_VIEW_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const viewAllOrder = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_ADMIN_VIEW_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/orders`,
+
+      config
+    );
+
+    dispatch({
+      type: ORDER_ADMIN_VIEW_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_ADMIN_VIEW_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_ADMIN_DELIVER_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/orders/${order._id}/deliver`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: ORDER_ADMIN_DELIVER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_ADMIN_DELIVER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

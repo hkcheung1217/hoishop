@@ -14,6 +14,14 @@ import {
   ORDER_VIEW_REQUEST,
   ORDER_VIEW_RESET,
   ORDER_VIEW_SUCCESS,
+  ORDER_ADMIN_VIEW_REQUEST,
+  ORDER_ADMIN_VIEW_SUCCESS,
+  ORDER_ADMIN_VIEW_FAIL,
+  ORDER_ADMIN_VIEW_RESET,
+  ORDER_ADMIN_DELIVER_REQUEST,
+  ORDER_ADMIN_DELIVER_SUCCESS,
+  ORDER_ADMIN_DELIVER_FAIL,
+  ORDER_ADMIN_DELIVER_RESET,
 } from "../types/orderTypes";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -108,6 +116,54 @@ export const orderViewReducer = (state = { orders: [] }, action) => {
       return {
         orders: [],
       };
+    default:
+      return state;
+  }
+};
+
+export const orderAdminViewReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case ORDER_ADMIN_VIEW_REQUEST:
+      return {
+        loading: true,
+      };
+    case ORDER_ADMIN_VIEW_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+    case ORDER_ADMIN_VIEW_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ORDER_ADMIN_VIEW_RESET:
+      return {
+        orders: [],
+      };
+    default:
+      return state;
+  }
+};
+
+export const orderAdminDeliverReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_ADMIN_DELIVER_REQUEST:
+      return {
+        loading: true,
+      };
+    case ORDER_ADMIN_DELIVER_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ORDER_ADMIN_DELIVER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ORDER_ADMIN_DELIVER_RESET:
+      return {};
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 import FormContainer from "../../FormContainer/FormContainer";
 import { register } from "../../../redux/actions/userAction";
+import { USER_REGISTER_RESET } from "../../../redux/types/userTypes";
 
 const RegisterScreen = ({ history, location }) => {
   const [name, setName] = useState("");
@@ -15,7 +16,6 @@ const RegisterScreen = ({ history, location }) => {
   const [message, setMessage] = useState(null);
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
-  console.log(location);
 
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
@@ -23,9 +23,10 @@ const RegisterScreen = ({ history, location }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      dispatch({ type: USER_REGISTER_RESET });
+      history.push(`/login?redirect=${redirect}`);
     }
-  }, [history, userInfo, redirect]);
+  }, [dispatch, history, userInfo, redirect]);
 
   const submitHandler = (event) => {
     event.preventDefault();
