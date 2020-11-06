@@ -88,7 +88,7 @@ const ProductListScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Table striped bordered hover responsive className="table-sm">
+          <Table bordered hover responsive className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>

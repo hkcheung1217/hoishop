@@ -16,17 +16,18 @@ h2 {
   padding: 0.5rem 0;
 }
 
+img {
+  object-fit: cover;
+  height: auto;
+  width: 100%;
+}
+
 .rating span {
   margin: 0.1rem;
 }
 
-.table-striped tbody tr:nth-of-type(2n + 1) {
-  background-color: white;
-}
-
 .table-hover tbody tr:hover {
-  color: #55595c;
-  background-color: rgba(0, 0, 0, 0.075);
+  color: #2a9fd6;
 }
 
 /* carousel */

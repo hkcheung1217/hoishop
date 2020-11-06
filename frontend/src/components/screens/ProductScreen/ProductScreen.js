@@ -28,6 +28,8 @@ const ProductScreen = ({ history, match }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
+  const pageNumber = match.params.pageNumber;
+
   const dispatch = useDispatch();
 
   const { loading, error, product } = useSelector(
@@ -71,7 +73,10 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
-      <Link className="btn btn-dark my-3" to="/">
+      <Link
+        className="btn btn-dark my-3"
+        to={pageNumber ? `/page/${pageNumber}` : "/"}
+      >
         Go Back
       </Link>
       {loading ? (

@@ -4,14 +4,16 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../Rating/Rating";
 
-const Product = ({ product }) => {
+const Product = ({ product, pageNumber }) => {
   return (
     <Card className="my-3 p-3 rounded">
-      <Link to={`product/${product._id}`}>
-        <Card.Img src={product.image} variant="top" />
-      </Link>
+      <div>
+        <Link to={`/page/${pageNumber}/product/${product._id}`}>
+          <Card.Img src={product.image} variant="top" />
+        </Link>
+      </div>
       <Card.Body>
-        <Link to={`product/${product._id}`}>
+        <Link to={`/page/${pageNumber}/product/${product._id}`}>
           <Card.Title as="div">
             <strong>{product.name}</strong>
           </Card.Title>
